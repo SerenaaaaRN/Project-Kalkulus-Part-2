@@ -3,23 +3,6 @@ import sympy as sp
 from output_display import tampilkanLangkahSolusi, tampilkanTabel, tampilkanPlot
 
 def selesaikanPersamaanDiferensial(ekspresiP, ekspresiQ, x0, y0, xAkhir, stepSize, widgetDict):
-    """
-    Menyelesaikan persamaan diferensial linear orde 1
-    
-    Parameters:
-    -----------
-    ekspresiP : str - Fungsi P(x)
-    ekspresiQ : str - Fungsi Q(x)
-    x0 : float - Nilai awal x
-    y0 : float - Nilai awal y
-    xAkhir : float - Nilai akhir x
-    stepSize : float - Step size
-    widgetDict : dict - Dictionary berisi widgets GUI
-    
-    Returns:
-    --------
-    dict - Result dictionary dengan status sukses dan data/error
-    """
     try:
         x = sp.Symbol('x')
         simbolP = sp.sympify(ekspresiP)

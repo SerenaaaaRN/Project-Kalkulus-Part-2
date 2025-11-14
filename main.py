@@ -2,7 +2,8 @@ import tkinter as tk
 from gui_component import buatJendelaUtama, setupGaya
 from event_handlers import ikatEvent
 
-def main():
+
+if __name__ == "__main__":
     """Fungsi utama untuk menjalankan aplikasi"""
     root = tk.Tk()
     root.title("Solver Persamaan Diferensial Linear Orde 1")
@@ -22,6 +23,3 @@ def main():
     widgetDict['barStatus'].config(text="Ready - Masukkan persamaan diferensial Anda")
     
     root.mainloop()
-
-if __name__ == "__main__":
-    main()
