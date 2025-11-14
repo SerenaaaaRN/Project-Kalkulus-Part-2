@@ -1,92 +1,114 @@
-sebelum kami menjelaskan alur atau algoritma dari program ini, kita akan tampilin dulu hasil dari aplikasi yang kami bikin
 
-// menjalankan dan menampilkan aplikasi
+BAGIAN 1 : SIMULASI Aplikasi
+    Sebelum kami menjelaskan alur atau algoritma dari program ini, kami akan menampilkan dulu hasil dari aplikasi yang telah kami buat.
 
-penjelasan dulu, aplikasi ini adalah untuk menyelesaikan persamaan diferensial linear ordo 1 bentuk dy/dx + p(x)y = q(x)
-1. Pertama user input nilai p(x) dan q(x) dulu
-2. untuk kondisi awal x0, yo kita default aja 
-3. kalo udah tinggal klik solve
+    // menjalankan dan menampilkan aplikasi
 
-nah setelah solve, hasilnya akan keluar di sebelah kanan
-1. Tab "langkah solusi"
-    Ini fitur utamanya. Aplikasi ini ngasih tau semua langkah-langkah buat nyelesaiinnya, 
-    persis kayak kita ngitung manual. Mulai dari Langkah 1, Langkah 2 (nyari Faktor Integrasi), dan seterusnya.
-    Nah di langkah 6 masih bentuk solusi umum. Ini solusi yang masih ada nilai C nya
-2. Dari solusi umum ke solusi Khusus
-    trus gunanya x0, y0 tadi apa?
-    Itu dipakai buat nyari nilai C tadi (di Langkah 7), biar kita dapat Solusi Khusus (atau Solusi Eksak) di Langkah 8. 
-    Ini solusi akhirnya, yang udah nggak ada C-nya.
-3. Tab "Table Nilai" dan "Grafik"
-    Nah, Solusi Eksak inilah yang dipakai buat bikin dua output lainnya:
-        Tabel Nilai: Ini tabel hasil perhitungan x dan y-nya.
-        Grafik: Ini visualisasi dari tabel tadi dalam bentuk kurva.
+    penjelasan dulu, aplikasi ini adalah untuk menyelesaikan persamaan diferensial linear ordo 1 bentuk dy/dx + p(x)y = q(x)
+    Cara kerjanya:
+    1. Pertama user input nilai p(x) dan q(x) dulu
+    2. untuk kondisi awal x0, yo kita default aja 
+    3. kalo udah tinggal klik solve
 
-Setelah simulasi aplikasi, sekarang kita akan alur kodenya gimana
-Dalam project ini, kami memecah ke beberapa file
-1. main.py: sebagai file utama
-2. event_handlers: sebagai.....
-3. gui_component: sebagai nampilin interface
-4. output_display: sebagai....
-5. solver: sebagai.....
-
-1. Pertama kita ke file main.py dulu, file ini adalah file utama dari project kita
-    di atas sini kita mengimport library tkinter untuk membuat aplikasi antarmuka di python
-    trus ini ada gui_component itu kita import kode kita di file lain, dan juga event_handlers
-
-    root = tk.Tk()
-    root.title("Solver Persamaan Diferensial Linear Orde 1")
-    root.geometry("1400x900")
-    root.configure(bg="#f0f0f0")
-        ini buat bikin canvas kosong trus dikasih judul solver persamaan diferensial
-        dengan ukuran 1400x900 px trus background putih
-
-    setupGaya(): Kita panggil fungsi styling yang tadi kita import. 
-        Ini buat mastiin semua tombol dan label pake gaya (font, warna) yang udah kita tentuin di gui_component.py
-
-    widgetDict = buatJendelaUtama(root): 
-        Kita panggil fungsi buatJendelaUtama. 
-        Fungsi ini bakal 'ngegambar' semua yang kita liat di aplikasi (header, panel input, panel output, tombol-tombol) ke dalem root (jendela utama). 
-        Hasilnya disimpen di widgetDict, ini kayak 'inventaris' semua widget kita biar gampang diakses lagi nanti.
-
-    ikatEvent(widgetDict): 
-        Setelah semua tombol dan input field jadi (ada di widgetDict), kita panggil ikatEvent. 
-        Fungsi ini bilang ke program, "Hei, kalo tombol 'solve' di-klik, panggil fungsi padaKlikSolve ya!" (dan sama juga buat tombol 'clear').
-    
-    widgetDict['barStatus'].config(...): 
-        Ini kita ngatur tulisan di paling bawah aplikasi (status bar), ngasih tau kalo aplikasi udah siap dipake.
-
-    root.mainloop(): 
-        Ini adalah perintah terakhir. mainloop() ini yang bikin jendelanya 'looping' dan 'nyala' terus. 
-        Dia bakal diem nungguin kita nge-klik sesuatu (kayak tombol) atau ngetik sesuatu. 
-        Tanpa ini, programnya bakal selesai jalan gitu aja dan jendelanya gak bakal muncul.
-
-2. Kedua kita akan ke file event_handlers.py, file ini menangani atau menanggapi suatu peristiwa (event) yang terjadi, 
-    seperti klik tombol atau gerakan mouse, dengan cara menjalankan fungsi kode tertentu sebagai responsnya
-
-    function setupGaya
-        nah ini adalah fungsi yang kita panggil tadi di main program, dia gunanya untuk styling, 
-        seperti gunain fontnua harus arial, size font 16, bold
-        jadi pas kita mau style, tinggal panggil aja fungsi ini untuk bbrpa widget
-
-    function buatHeader
-        Fungsi ini bikin bagian paling atas aplikasi (bagian 'header' yang warna biru tua) yang ada tulisan "🔬 Solver Persamaan Diferensial...".
-    
-    function buatPanelInput
-        Ini yang bikin semua kotak di sebelah KIRI 📝.
-            Dia yang bikin panelKiri (frame utamanya).
-            Dia yang bikin headerInput (judul "INPUT PARAMETER").
-            Dia yang bikin framePersamaan (kotak yang ngasih tau info dy/dx + P(x)y = Q(x)).
-            Dia yang manggil buatFieldInput() berkali-kali buat bikin baris-baris input:
-            Dia manggil buatTombol() buat bikin tombol "SOLVE" dan "CLEAR". Hasilnya disimpen di tombolDict.
-            Terakhir, dia ngembaliin panelKiri, entryDict, dan tombolDict biar bisa dipake sama file main.py.
-    
+    nah setelah solve, hasilnya akan keluar di sebelah kanan
+    1. Tab "langkah solusi"
+        Ini fitur utamanya. Aplikasi ini ngasih tau semua langkah-langkah buat nyelesaiinnya, 
+        persis kayak kita ngitung manual. Mulai dari Langkah 1, Langkah 2 (nyari Faktor Integrasi), dan seterusnya.
+        Nah di langkah 6 masih bentuk solusi umum. Ini solusi yang masih ada nilai C nya
+    2. Dari solusi umum ke solusi Khusus
+        trus gunanya x0, y0 tadi apa?
+        Itu dipakai buat nyari nilai C tadi (di Langkah 7), biar kita dapat Solusi Khusus (atau Solusi Eksak) di Langkah 8. 
+        Ini solusi akhirnya, yang udah nggak ada C-nya.
+    3. Tab "Table Nilai" dan "Grafik"
+        Nah, Solusi Eksak inilah yang dipakai buat bikin dua output lainnya:
+            Tabel Nilai: Ini tabel hasil perhitungan x dan y-nya.
+            Grafik: Ini visualisasi dari tabel tadi dalam bentuk kurva.
 
 
 
-3. Ketiga kita akan ke file solver.py, nah di file ini semua perhitungan ada di sini
-    1. pertama pengimport library numpy dan sympy untuk perhitungan matematikanya
-    2. lanjut ke function :
-        function generateLangkahSolusi:
+BAGIAN 2 : PENJELASAN ALUR KODE
+    Setelah simulasi aplikasi, sekarang kita akan membahas alur kodenya. 
+
+    Dalam project ini, kami memecah kode ke dalam beberapa file Python:
+    1. main.py: sebagai file utama untuk menjalankan aplikasi
+    2. gui_component: Untuk menata semua tampilan dan antarmuka (interface).
+    3. event_handlers: untuk Untuk menangani semua aksi pengguna (contoh: klik tombol).
+    4. solver.py: Untuk melakukan semua perhitungan matematika (solusi PD).
+    5. output_display.py: Untuk menampilkan hasil perhitungan ke layar.
+
+    File 1: main.py
+        Pertama kita ke file main.py dulu, file ini adalah file utama dari project kita
+        di atas sini kita mengimport library tkinter untuk membuat aplikasi antarmuka di python
+        trus ini ada gui_component itu kita import kode kita di file lain, dan juga event_handlers
+
+        root = tk.Tk()
+        root.title("Solver Persamaan Diferensial Linear Orde 1")
+        root.geometry("1400x900")
+        root.configure(bg="#f0f0f0")
+            ini buat bikin canvas kosong trus dikasih judul solver persamaan diferensial
+            dengan ukuran 1400x900 px trus background putih
+
+        setupGaya(): Kita panggil fungsi styling yang tadi kita import. 
+            Ini buat mastiin semua tombol dan label pake gaya (font, warna) yang udah kita tentuin di gui_component.py
+
+        widgetDict = buatJendelaUtama(root): 
+            Kita panggil fungsi buatJendelaUtama. 
+            Fungsi ini bakal 'ngegambar' semua yang kita liat di aplikasi (header, panel input, panel output, tombol-tombol) ke dalem root (jendela utama). 
+            Hasilnya disimpen di widgetDict, ini kayak 'inventaris' semua widget kita biar gampang diakses lagi nanti.
+
+        ikatEvent(widgetDict): 
+            Setelah semua tombol dan input field jadi (ada di widgetDict), kita panggil ikatEvent. 
+            Fungsi ini bilang ke program, "Hei, kalo tombol 'solve' di-klik, panggil fungsi padaKlikSolve ya!" (dan sama juga buat tombol 'clear').
+        
+        widgetDict['barStatus'].config(...): 
+            Ini kita ngatur tulisan di paling bawah aplikasi (status bar), ngasih tau kalo aplikasi udah siap dipake.
+
+        root.mainloop(): 
+            Ini adalah perintah terakhir. mainloop() ini yang bikin jendelanya 'looping' dan 'nyala' terus. 
+            Dia bakal diem nungguin kita nge-klik sesuatu (kayak tombol) atau ngetik sesuatu. 
+            Tanpa ini, programnya bakal selesai jalan gitu aja dan jendelanya gak bakal muncul.
+
+    File 2: gui_component.py
+        File ini berisi semua fungsi yang 'menggambar' tampilan:
+        - function setupGaya():
+            nah ini adalah fungsi yang kita panggil tadi di main program, dia gunanya untuk styling, 
+            seperti gunain fontnya harus arial, size font 16, bold
+            jadi pas kita mau style, tinggal panggil aja fungsi ini untuk bbrpa widget
+
+        - function buatHeader():
+            Fungsi ini bikin bagian paling atas aplikasi (bagian 'header' yang warna biru tua) yang ada tulisan "Solver Persamaan Diferensial...".
+        
+        - function buatPanelInput
+            Ini yang bikin semua kotak di sebelah KIRI 📝.
+                Dia yang bikin panelKiri (frame utamanya).
+                Dia yang bikin headerInput (judul "INPUT PARAMETER").
+                Dia yang bikin framePersamaan (kotak yang ngasih tau info dy/dx + P(x)y = Q(x)).
+                Dia yang manggil buatFieldInput() berkali-kali buat bikin baris-baris input:
+                Dia manggil buatTombol() buat bikin tombol "SOLVE" dan "CLEAR". Hasilnya disimpen di tombolDict.
+                Terakhir, dia ngembaliin panelKiri, entryDict, dan tombolDict biar bisa dipake sama file main.py.
+
+    FIle 3: event_handlers.py
+        File ini menangani peristiwa (event) yang terjadi, seperti klik tombol, dengan menjalankan fungsi tertentu sebagai responsnya.
+            - function ikatEvent():
+                fungsi ini yang kita panggil di main.py tadi
+                Tugasnya mengaitkan tombolDict['solve'] dengan fungsi padaKlikSolve dan tombolDict['clear'] dengan padaKlikClear
+            
+            - function padaKlikSolve():
+                Ini yang terjadi saat tombol "SOLVE" ditekan.
+                Tombol di-disable dulu agar tidak di-klik berkali-kali.
+                Status bar di-update.
+                Penting: Perhitungan (threadSolve) dijalankan di thread terpisah. Ini agar aplikasi tidak 'freeze' atau 'not responding' saat sedang menghitung.
+
+            - function padaKlikClear():
+                Ini yang terjadi saat tombol "CLEAR" ditekan.
+                Semua kotak input dikembalikan ke nilai default-nya.
+                Memanggil bersihkanSemuaOutput() (dari file output_display.py) untuk mengosongkan semua tab hasil (langkah, tabel, dan grafik).
+
+    File 4: solver.py
+        Nah di file ini semua perhitungan ada di sini
+        Trus di dalem file ini kita mengimport library numpy dan sympy
+
+        - function generateLangkahSolusi():
             Fungsi ini ngebangun sebuah string teks panjang yang ngejelasin cara solusi pake
             metode faktor integasi
             Dia make sp.integrate(simbolP, x) ----> ini akan secara otomatis mencari integral dari P
@@ -94,7 +116,7 @@ Dalam project ini, kami memecah ke beberapa file
             Dia ngerakit Dia ngerakit semua langkah itu jadi teks yang rapi, 
             lengkap sama rumusnya, trus dikembaliin buat ditampilin di tab 'Langkah Solusi'.
 
-        function selesaikanPersamaanDiferensial:
+        - function selesaikanPersamaanDiferensial:
             nah di dalemnya kita menggunakan try...except buat jaga jaga kalo user input asalan
             Mengubah Teks jadi Rumus: Dia pake sp.Symbol('x') (bilang ke SymPy kalo 'x' itu variabel) dan 
             sp.sympify() (ngubah string "x**2" jadi rumus beneran yang bisa diitung).
@@ -103,32 +125,26 @@ Dalam project ini, kami memecah ke beberapa file
             Teks ini langsung dikirim ke output_display.py buat ditampilin di tab 'Langkah Solusi'.
 
             Cari Solusi Eksak: Dia pake sp.dsolve(persamaanDif, ..., ics={y(x0): y0}). 
-                Dia nyerahin persamaan (dy/dx + Py = Q) dan kondisi awal (y(0) = 1) ke SymPy, trus SymPy ngasih solusi eksaknya
+            Dia nyerahin persamaan (dy/dx + Py = Q) dan kondisi awal (y(0) = 1) ke SymPy, trus SymPy ngasih solusi eksaknya
 
-            
-4. Keempat kita akan ke file output_display.py, file ini sebagai nampilin apapun yang disuruh sama solver.py tadi
-    atau event_handlers ke layar
+    File 5: output_display.py
+        file ini sebagai nampilin apapun yang disuruh sama solver.py tadi atau event_handlers ke layar
 
-    langsung ke function tampilkanLangkahSolusi:
-        dia tadi disuruh solver buat nampilin teks
+        - function tampilkanLangkahSolusi():
+            Menerima teks langkah solusi dari solver.py dan menampilkannya di tab 'Langkah Solusi'.
+        
+        - function tampilkanTabel():
+            dia dapetin nilai x dan y dari solver tadi
+            trus ngebuat table kayak di aplikasi tadi nampilin seluruh hasil nilai x dan y
 
-    function tampilkanTabel:
-        dia dapetin nilai x dan y dari solver tadi
-        trus ngebuat table kayak di aplikasi tadi nampilin seluruh hasil nilai x dan y
+        - function tampilinPlot():
+            Pertama, dia menghapus (destroy) plot lama yang mungkin ada di dalam frameGrafik. Ini wajib, kalau tidak, grafik akan numpuk tiap kali kita klik "SOLVE".
+            Dia pakai matplotlib (Figure, ax.plot) untuk ngegambar grafik nilaiX vs nilaiY.
+            Grafik matplotlib ini kemudian "ditempel" ke dalam frame tkinter.
 
-    function tampilinPlot:
-        ini dia ngedestroy dulu semua yang ada di dalam frameGrafik. Ini wajib dilakuin, kalo nggak, 
-        nanti grafiknya numpuk-numpuk tiap kali kita klik "SOLVE".
-        Dia pake matplotlib (Figure, ax.plot) buat ngegambar grafik nilaiX vs nilaiY. Dia juga nambahin judul, label, legenda, dan grid.
-
-    function bersihkanSemuaOutput:
-        Ini dipanggil sama event_handlers pas kita nge-klik "CLEAR".
-        Tugasnya: ngosongin teksLangkah, ngosongin teksTabel, dan nge-destroy (ngebuang) grafik yang ada di frameGrafik
-
-
-            
-
-
+        - function bersihkanSemuaOutput():
+            Ini dipanggil sama event_handlers pas kita nge-klik "CLEAR".
+            Tugasnya: ngosongin teksLangkah, ngosongin teksTabel, dan nge-destroy (ngebuang) grafik yang ada di frameGrafik
 
 
 
