@@ -1,6 +1,6 @@
 import numpy as np
 import sympy as sp
-from output_display import tampilkanLangkahSolusi, tampilkanTabel, tampilkanPlot
+from src.output_display import tampilkanLangkahSolusi, tampilkanTabel, tampilkanPlot
 
 def selesaikanPersamaanDiferensial(ekspresiP, ekspresiQ, x0, y0, xAkhir, stepSize, widgetDict):
     try:

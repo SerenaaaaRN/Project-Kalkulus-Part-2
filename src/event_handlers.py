@@ -1,7 +1,7 @@
 import threading
 from tkinter import messagebox
-from solver import selesaikanPersamaanDiferensial
-from output_display import bersihkanSemuaOutput
+from src.solver import selesaikanPersamaanDiferensial
+from src.output_display import bersihkanSemuaOutput
 
 def ikatEvent(widgetDict):
     """Bind semua event handlers ke widgets"""

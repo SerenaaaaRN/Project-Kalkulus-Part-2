@@ -1,6 +1,6 @@
 import tkinter as tk
-from gui_component import buatJendelaUtama, setupGaya
-from event_handlers import ikatEvent
+from src.gui_component import buatJendelaUtama, setupGaya
+from src.event_handlers import ikatEvent
 
 
 if __name__ == "__main__":
